@@ -9,3 +9,5 @@ The User will contain multiple Bookmark items, which contain the link, id, tags,
 The User and Article items will contain Tag items, which contain an id and string name.
 
 The Article will contain a title, author, post date, body text, and Tags.
+
+![database diagram](/database-diagram.png)
