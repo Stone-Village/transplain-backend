@@ -2,7 +2,7 @@
 
 ## Database Schema
 
-Two main items in the database: the User and the Article. 
+Two main items in the database: the User and the Article.
 
 The User will contain multiple Bookmark items, which contain the link, id, tags, and title of an article.
 
