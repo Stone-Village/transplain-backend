@@ -1,0 +1,7 @@
+const Article = require('./src/aricle');
+
+async function displayArticle(request,response) {
+    const filterQuery = {};
+
+  
+}
