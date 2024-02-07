@@ -1,7 +1,53 @@
 const Article = require('./src/aricle');
 
-async function displayArticle(request,response) {
+async function readArticle(request, response) {
     const filterQuery = {};
+    let articles;
 
-  
+    if (request.query.title) {
+        filterQuery.title = request.query.title;
+        articles = await Article.find(filterQuery);
+    }
+
+    if (request.query.tags) {
+       articles = await Article.find({ tags: { $in: request.query.tags } });
+    }
+
+    response.send(articles);
 }
+
+async function deleteArticle(request, response) {
+    const id = request.params.id;
+    
+    try {
+        await Article.findByIdAndDelete(id);
+        response.status(204).send('deleted article');
+    } catch (error) {
+        console.error(error);
+        response.status(404).send('unable to delete article based on id');
+    }
+}
+
+async function updateArticle(request, response) {
+    const id = request.params.id;
+
+    try {
+        await Article.findByIdAndUpdate(id, request.body);
+        response.status(200).send('updated article');
+    } catch (error) {
+        console.error(error);
+        response.status(500).send('server unable to update article');
+    }
+}
+
+async function createArticle(request, response) {
+    try {
+        const newArticle = await Article.create(request.body);
+        response.send(newArticle);
+    } catch (error) {
+        console.error(error);
+        response.status(500).send('error making article');
+    }
+}
+
+module.exports = { readArticle, deleteArticle, updateArticle, createArticle };
